@@ -1,0 +1,148 @@
+Metadata-Version: 2.4
+Name: backend-foundation
+Version: 0.1.0
+Summary: Backend Foundation for RAG System
+Author-email: Developer <dev@example.com>
+License: MIT
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: fastapi>=0.115.0
+Requires-Dist: sqlmodel>=0.0.22
+Requires-Dist: asyncpg>=0.30.0
+Requires-Dist: pgvector>=0.2.5
+Requires-Dist: uvicorn>=0.32.0
+Requires-Dist: python-multipart>=0.0.20
+Requires-Dist: pydantic-settings>=2.7.0
+Requires-Dist: alembic>=1.13.3
+Requires-Dist: sqlalchemy>=2.0.36
+Requires-Dist: python-dotenv>=1.0.1
+Requires-Dist: pymupdf>=1.24.10
+Requires-Dist: python-docx>=1.1.2
+Requires-Dist: transformers>=4.45.2
+Requires-Dist: torch>=2.5.1
+Requires-Dist: huggingface-hub>=0.26.2
+Requires-Dist: sentence-transformers>=3.1.1
+Requires-Dist: httpx>=0.28.1
+Requires-Dist: pypdf2>=3.0.1
+Requires-Dist: psycopg2>=2.9.11
+Requires-Dist: bcrypt>=5.0.0
+Requires-Dist: python-jose>=3.5.0
+Requires-Dist: aiohttp>=3.13.3
+Provides-Extra: dev
+Requires-Dist: pytest>=8.3.3; extra == "dev"
+Requires-Dist: pytest-asyncio>=0.23.7; extra == "dev"
+Requires-Dist: pytest-cov>=5.0.0; extra == "dev"
+Requires-Dist: black>=24.8.0; extra == "dev"
+Requires-Dist: flake8>=7.1.1; extra == "dev"
+Requires-Dist: mypy>=1.11.2; extra == "dev"
+Requires-Dist: isort>=5.13.2; extra == "dev"
+Requires-Dist: pre-commit>=3.8.0; extra == "dev"
+Requires-Dist: httpx>=0.27.2; extra == "dev"
+
+# Backend Foundation
+
+This is the backend foundation for the RAG (Retrieval-Augmented Generation) system, built with FastAPI, SQLModel, and PostgreSQL with pgvector extension.
+
+## Features
+
+- **FastAPI**: Modern, fast web framework for building APIs with Python 3.7+ based on standard Python type hints
+- **SQLModel**: Combines SQLAlchemy and Pydantic for database models
+- **PostgreSQL + pgvector**: Vector similarity search capabilities
+- **AsyncPG**: Asynchronous PostgreSQL client library
+- **Health Checks**: Built-in health check endpoint
+- **API Documentation**: Automatic API documentation with Swagger UI and ReDoc
+
+## Architecture
+
+The backend follows a modular architecture:
+
+- **Models**: Data models using SQLModel
+- **Services**: Business logic layer
+- **API**: API endpoints and routing
+- **Utils**: Utility functions
+- **Config**: Configuration and database setup
+
+## API Endpoints
+
+### Health Check
+- `GET /health` - Check the health status of the application
+
+### Knowledge Documents
+- `POST /api/v1/knowledge-docs/` - Create a new knowledge document
+- `GET /api/v1/knowledge-docs/{id}` - Get a specific knowledge document
+- `GET /api/v1/knowledge-docs/` - Get a list of knowledge documents
+- `PUT /api/v1/knowledge-docs/{id}` - Update a knowledge document
+- `DELETE /api/v1/knowledge-docs/{id}` - Delete a knowledge document
+
+### Vector Chunks
+- `POST /api/v1/vector-chunks/` - Create a new vector chunk
+- `GET /api/v1/vector-chunks/{id}` - Get a specific vector chunk
+- `GET /api/v1/vector-chunks/` - Get a list of vector chunks
+- `PUT /api/v1/vector-chunks/{id}` - Update a vector chunk
+- `DELETE /api/v1/vector-chunks/{id}` - Delete a vector chunk
+- `POST /api/v1/vector-chunks/search` - Search for similar vector chunks
+
+### Audit Logs
+- `GET /api/v1/audit-logs/` - Get a list of audit logs
+- `GET /api/v1/audit-logs/{id}` - Get a specific audit log
+- `GET /api/v1/audit-logs/actions/{action}` - Get audit logs filtered by action type
+
+## Setup
+
+### Prerequisites
+- Python 3.13+
+- PostgreSQL with pgvector extension
+- uv package manager
+
+### Installation
+
+1. Clone the repository
+2. Navigate to the backend directory
+3. Install dependencies:
+   ```bash
+   uv pip install -r requirements.txt
+   ```
+4. Set up environment variables (see `.env.example`)
+5. Run the application:
+   ```bash
+   uvicorn src.main:app --reload
+   ```
+
+## Environment Variables
+
+- `DATABASE_URL`: PostgreSQL database URL
+- `HUGGING_FACE_API_KEY`: Hugging Face API key for embedding generation
+- `SECRET_KEY`: Secret key for JWT tokens
+- `DEBUG`: Enable/disable debug mode (true/false)
+
+## Development
+
+To run tests:
+```bash
+pytest tests/
+```
+
+To format code:
+```bash
+black src/
+```
+
+To run linting:
+```bash
+flake8 src/
+```
+
+## Docker
+
+To run with Docker:
+```bash
+docker-compose up
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
